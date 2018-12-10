@@ -2,6 +2,9 @@ import pygame
 from pygame.locals import *
 from sys import exit
 
+from Pencil import Pencil
+from Pencil_for_SimCity import Pencil_for_SimCity
+
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
 scale = 0.8
@@ -15,17 +18,16 @@ def main():
     background = pygame.image.load("img/bg.png")
     background = pygame.transform.scale(background, [int(SCREEN_WIDTH * scale), int(SCREEN_HEIGHT * scale)])
 
-    myfont = pygame.font.Font(None, 30)
-    textImage = myfont.render("Living Area", True, (0, 0, 0))
+    # myfont = pygame.font.Font(None, 30)
+    # textImage = myfont.render("Living Area", True, (0, 0, 0))
 
     while True:
         screen.blit(background, (0, 0))
         # draw river
         pygame.draw.rect(screen, (141, 178, 238), (0, 800 * scale, 1920 * scale, 50 * scale))
-        # draw uptown
-        pygame.draw.rect(screen, (0, 0, 0, 0.8), (20 * scale, 0, 400 * scale, 200 * scale), 3)
-        pygame.draw.rect(screen, (231, 121, 24), (22 * scale, 2, 398 * scale, 197 * scale))
-        screen.blit(textImage, (25, 5))
+        # draw Living Area
+        Pencil_for_SimCity.create_building(screen, (231, 121, 24), (20 * scale, 0, 400 * scale, 200 * scale),
+                                           "LIVING AREA")
 
         for event in pygame.event.get():
             if event.type == QUIT:
