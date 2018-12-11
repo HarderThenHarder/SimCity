@@ -4,6 +4,7 @@ class RectArea:
         self._pos = pos
         self._width_height = width_height
         self._color = color
+        self._entrance = []
 
     def get_start_pos(self):
         return self._pos
@@ -19,6 +20,12 @@ class RectArea:
 
     def get_name(self):
         return self._name
+
+    def add_entrance(self, entrance):
+        self._entrance = entrance
+
+    def get_entrance(self):
+        return self._entrance
 
 
 class PolyArea:
