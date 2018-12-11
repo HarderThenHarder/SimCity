@@ -52,15 +52,12 @@ class AreaConfig:
     ######################################### poly area list ###########################################################
 
         # Create lake
-        lake_pos = ((700 * scale, 550 * scale), (750 * scale, 450 * scale), (850 * scale, 450 * scale),
-                    (850 * scale, 550 * scale), (700 * scale, 550 * scale))
-        lake = PolyArea("LAKE", lake_pos, color=(141, 178, 238))
+        lake_pos = ((600 * scale, 550 * scale), (550 * scale, 400 * scale), (800 * scale, 350 * scale),
+                    (900 * scale, 330 * scale), (1000 * scale, 500 * scale), (700 * scale, 550 * scale))
+        lake = PolyArea("", lake_pos, color=(141, 178, 238))
         self.poly_area_list.append(lake)
 
-
-
-
-
+    ####################################################################################################################
 
     def get_rect_obs_list(self):
         return self.rect_area_list
