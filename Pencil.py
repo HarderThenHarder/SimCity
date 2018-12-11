@@ -16,6 +16,10 @@ class Pencil:
         pygame.draw.rect(screen, color, rect, width)
 
     @staticmethod
+    def draw_poly_rect(screen, color, pointlist, width=0):
+        pygame.draw.polygon(screen, color, pointlist, width)
+
+    @staticmethod
     def draw_circle(screen, pos,  radius, color=(0, 0, 0), width=1):
         pygame.draw.circle(screen, color, pos, radius, width)
 
