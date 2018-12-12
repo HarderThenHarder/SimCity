@@ -17,12 +17,14 @@ class AreaConfig:
                                     color=(231, 121, 24))
         self.living_area.add_entrance([220 * scale, 200 * scale])
         self.rect_area_list.append(self.living_area)
+        self.road_area.append([self.living_area.get_start_pos(), self.living_area.get_end_pos()])
 
         # Create MARKET
         self.market = RectArea("MARKET", pos=[440 * scale, 630 * scale], width_height=[200 * scale, 150 * scale],
                                color=(220, 35, 80))
         self.market.add_entrance([440 * scale, 780 * scale])
         self.rect_area_list.append(self.market)
+        self.road_area.append([self.market.get_start_pos(), self.market.get_end_pos()])
 
         # Create River
         self.river = RectArea("", pos=[0, 800 * scale], width_height=[1920 * scale, 100 * scale],
@@ -74,10 +76,9 @@ class AreaConfig:
         return self.poly_area_list
 
     def get_road_area(self):
-        road_area = []
         for road in self.road_list:
-            road_area.append([road.get_start_pos(), road.get_end_pos()])
-        return road_area
+            self.road_area.append([road.get_start_pos(), road.get_end_pos()])
+        return self.road_area
 
     def get_cross_list(self):
         return self.cross_list

@@ -32,7 +32,7 @@ def main():
 
     citizen_group = []
     for i in range(20):
-        citizen = Citizen([220 * scale, 200 * scale], config.market.get_entrance(), config.get_road_area(), config.get_cross_list())
+        citizen = Citizen([220 * scale, 200 * scale], config.market, config.get_road_area(), config.get_cross_list())
         citizen_group.append(citizen)
 
     while True:
@@ -51,6 +51,11 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 exit()
+
+            if event.type == KEYDOWN:
+                for citizen in citizen_group:
+                    citizen.change_target(config.living_area)
+                    citizen.update()
 
         if ticks % 2 == 0:
             for citizen in citizen_group:

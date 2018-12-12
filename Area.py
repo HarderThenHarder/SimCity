@@ -1,3 +1,5 @@
+
+
 class RectArea:
     def __init__(self, name, pos, width_height, color):
         self._name = name

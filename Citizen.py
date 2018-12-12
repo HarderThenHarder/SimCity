@@ -4,17 +4,19 @@
 import pygame
 import math
 import random
+from random import randint
 
 
 class Citizen(pygame.sprite.Sprite):
 
-    def __init__(self, initial_pos, target_pos, road_area, cross_list):
+    def __init__(self, initial_pos, target_area, road_area, cross_list):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([7, 7])
         self.initial_pos = initial_pos
         self.pos = initial_pos
         self.speed = 3 + 2 * random.random()
-        self.target_pos = target_pos
+        self.target_area = target_area
+        self.target_pos = target_area.get_entrance()
         self.road_area = road_area
         self.cross_list = cross_list
         self.not_reached_cross = True
@@ -64,6 +66,17 @@ class Citizen(pygame.sprite.Sprite):
             return True
         return False
 
+    def walk_in_target(self):
+        start_pos = self.target_area.get_start_pos()
+        end_pos = self.target_area.get_end_pos()
+        rand_pos = [randint(start_pos[0], end_pos[0] + 1), randint(start_pos[1], end_pos[1] + 1)]
+        self.go_target(rand_pos)
+
+    def change_target(self, target_area):
+        self.not_reached_cross = True
+        self.not_reached_target = True
+        self.target_area = target_area
+
     def update(self, *args):
         if self.not_reached_cross:
             nearest_cross = self.get_nearest_cross(self.target_pos, self.cross_list)
@@ -74,3 +87,6 @@ class Citizen(pygame.sprite.Sprite):
         if self.not_reached_target:
             if self.go_target(self.target_pos):
                 self.not_reached_target = False
+            return
+
+        self.walk_in_target()
