@@ -21,6 +21,9 @@ class Edge:
 
 
 class CityMap:
+    """
+    Use Floyd Method to find shortest path.
+    """
     def __init__(self, node_list, edge_list):
         self.node_list = node_list
         self.edge_list = edge_list
@@ -110,7 +113,7 @@ def main():
     node_list.append(node4)
     node5 = Node([0, 20], "E")
     node_list.append(node5)
-    node6 = Node([20, 20], "F")
+    node6 = Node([10, 20], "F")
     node_list.append(node6)
 
     edge_list = []
