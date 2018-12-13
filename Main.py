@@ -3,7 +3,11 @@ from pygame.locals import *
 from sys import exit
 from AreaConfig import AreaConfig
 from Citizen import Citizen
+from Pencil import Pencil
 from PencilForSimCity import PencilForSimCity
+import time
+
+from Timer import Timer
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
@@ -20,28 +24,52 @@ def draw_object(screen, rec_obs, poly_obs):
                                         name_color=(220, 220, 220))
 
 
+def trigger(timer, citizen_group, config):
+    second = timer.get_second()
+    minute = timer.get_minute()
+    hour = timer.get_hour()
+
+    if hour == 19 and minute == 48 and second == 26:
+        for citizen in citizen_group:
+            citizen.change_target(config.market)
+            citizen.update()
+
+    if hour == 19 and minute == 49 and second == 10:
+        for citizen in citizen_group:
+            citizen.change_target(config.living_area)
+            citizen.update()
+
+
 def main():
     pygame.init()
     pygame.display.set_caption("SimCity v1.0")
     screen = pygame.display.set_mode([int(SCREEN_WIDTH * scale), int(SCREEN_HEIGHT * scale)])
     config = AreaConfig(scale)
+    timer = Timer()
+    timer.set_time(19, 48, 23)
     ticks = 0
+    tick_elapsed = 0
 
-    background = pygame.image.load("img/bg.png")
+    background = pygame.image.load("img/city_bg2.png")
     background = pygame.transform.scale(background, [int(SCREEN_WIDTH * scale), int(SCREEN_HEIGHT * scale)])
 
     citizen_group = []
     for i in range(20):
-        citizen = Citizen([220 * scale, 200 * scale], config.market, config.get_road_area(), config.get_cross_list())
+        citizen = Citizen([220 * scale, 100 * scale], config.living_area, "walk_in_area", config.get_road_area(), config.get_cross_list(),
+                          config.building_area, in_which_area=config.living_area)
         citizen_group.append(citizen)
 
     while True:
+        since = time.time()
         clock.tick(10)
-        # screen.blit(background, (0, 0))
-        screen.fill(color=(255, 255, 255))
+
+        screen.blit(background, (0, 0))
+        # screen.fill(color=(255, 255, 255))
 
         # Draw the scene
         draw_object(screen, config.get_rect_obs_list(), config.get_poly_obs_list())
+        Pencil.write_text(screen, "%02d:%02d:%02d" % (timer.get_hour(), timer.get_minute(), timer.get_second()),
+                          [(SCREEN_WIDTH - 150) * scale, 20 * scale], font_size=35, color=(230, 230, 230))
 
         # Draw citizen
         for citizen in citizen_group:
@@ -62,6 +90,14 @@ def main():
                 citizen.update()
 
         ticks += 1
+        tick_elapsed += time.time() - since
+        if tick_elapsed >= 1:
+            timer.elapse_one_second()
+            print("%02d:%02d:%02d" % (timer.get_hour(), timer.get_minute(), timer.get_second()), end=': ')
+            print(citizen_group[0].state)
+            tick_elapsed = 0
+
+        trigger(timer, citizen_group, config)
         pygame.display.update()
 
 
