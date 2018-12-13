@@ -9,7 +9,7 @@ from random import randint
 
 class Citizen(pygame.sprite.Sprite):
 
-    def __init__(self, initial_pos, target_area, state, road_area, cross_list, building_area, in_which_area=None):
+    def __init__(self, initial_pos, target_area, state, road_area, cross_list, in_which_area=None):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([7, 7])
         self.initial_pos = initial_pos
@@ -18,7 +18,6 @@ class Citizen(pygame.sprite.Sprite):
         self.target_area = target_area
         self.in_which_area = in_which_area
         self.road_area = road_area
-        self.building_area = building_area
         self.cross_list = cross_list
         self.state = state
 

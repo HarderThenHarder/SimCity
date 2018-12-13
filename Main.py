@@ -61,7 +61,7 @@ def main():
     citizen_group = []
     for i in range(20):
         citizen = Citizen([220 * scale, 100 * scale], config.living_area, "walk_in_area", config.get_road_area(), config.get_cross_list(),
-                          config.building_area, in_which_area=config.living_area)
+                          in_which_area=config.living_area)
         citizen_group.append(citizen)
 
     while True:
