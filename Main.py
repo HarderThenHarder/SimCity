@@ -34,7 +34,12 @@ def trigger(timer, citizen_group, config):
             citizen.change_target(config.market)
             citizen.update()
 
-    if hour == 19 and minute == 49 and second == 10:
+    if hour == 19 and minute == 49 and second == 5:
+        for citizen in citizen_group:
+            citizen.change_target(config.restaurant)
+            citizen.update()
+
+    if hour == 19 and minute == 49 and second == 20:
         for citizen in citizen_group:
             citizen.change_target(config.living_area)
             citizen.update()
