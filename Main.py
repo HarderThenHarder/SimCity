@@ -10,18 +10,16 @@ import time
 from Timer import Timer
 
 SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
+SCREEN_HEIGHT = 960
 scale = 0.8
 clock = pygame.time.Clock()
 
 
 def draw_object(screen, rec_obs, poly_obs):
     for ob in rec_obs:
-        PencilForSimCity.draw_area(screen, ob.get_color(), ob.get_rect(), ob.get_name(),
-                                   name_color=(220, 220, 220))
+        PencilForSimCity.draw_area(screen, ob.get_color(), ob.get_rect(), ob.get_name())
     for poly_ob in poly_obs:
-        PencilForSimCity.draw_poly_area(screen, poly_ob.get_color(), poly_ob.get_pos_list(), poly_ob.get_name(),
-                                        name_color=(220, 220, 220))
+        PencilForSimCity.draw_poly_area(screen, poly_ob.get_color(), poly_ob.get_pos_list(), poly_ob.get_name())
 
 
 def trigger(timer, citizen_group, config):
@@ -55,7 +53,7 @@ def main():
     ticks = 0
     tick_elapsed = 0
 
-    background = pygame.image.load("img/city_bg.png")
+    background = pygame.image.load("img/city_bg2.png")
     background = pygame.transform.scale(background, [int(SCREEN_WIDTH * scale), int(SCREEN_HEIGHT * scale)])
 
     citizen_group = []
@@ -68,13 +66,14 @@ def main():
         since = time.time()
         clock.tick(10)
 
-        screen.blit(background, (0, 0))
-        # screen.fill(color=(255, 255, 255))
+        # screen.blit(background, (0, 0))
+        screen.fill(color=(0, 73, 48))
 
         # Draw the scene
         draw_object(screen, config.get_rect_obs_list(), config.get_poly_obs_list())
+        time_size = 30
         Pencil.write_text(screen, "%02d:%02d:%02d" % (timer.get_hour(), timer.get_minute(), timer.get_second()),
-                          [(SCREEN_WIDTH - 150) * scale, 20 * scale], font_size=35, color=(230, 230, 230))
+                          [(SCREEN_WIDTH - time_size * 6) * scale, 20 * scale], font_size=time_size, color=(230, 230, 230))
 
         # Draw citizen
         for citizen in citizen_group:

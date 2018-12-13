@@ -24,7 +24,7 @@ class Pencil:
         pygame.draw.circle(screen, color, pos, radius, width)
 
     @staticmethod
-    def write_text(screen, content, font_pos, font_size=10, color=(0, 0, 0), font_family=None):
-        my_font = pygame.font.Font(font_family, font_size)
+    def write_text(screen, content, font_pos, font_size, color=(0, 0, 0)):
+        my_font = pygame.font.SysFont("consolas", font_size)
         text_image = my_font.render(content, True, color)
         screen.blit(text_image, font_pos)
