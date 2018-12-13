@@ -55,7 +55,7 @@ def main():
     ticks = 0
     tick_elapsed = 0
 
-    background = pygame.image.load("img/city_bg2.png")
+    background = pygame.image.load("img/city_bg.png")
     background = pygame.transform.scale(background, [int(SCREEN_WIDTH * scale), int(SCREEN_HEIGHT * scale)])
 
     citizen_group = []
