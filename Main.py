@@ -19,9 +19,7 @@ clock = pygame.time.Clock()
 
 def draw_object(screen, rec_obs, poly_obs):
     for ob in rec_obs:
-        PencilForSimCity.draw_area(screen, ob.get_color(), ob.get_rect(), ob.get_name())
-    for poly_ob in poly_obs:
-        PencilForSimCity.draw_poly_area(screen, poly_ob.get_color(), poly_ob.get_pos_list(), poly_ob.get_name())
+        PencilForSimCity.draw_area(screen, ob.get_color(), ob.get_rect(), ob.get_name(), name_size=int(25 * scale))
 
 
 def trigger(timer, citizen_group, config):
@@ -31,18 +29,18 @@ def trigger(timer, citizen_group, config):
 
     if hour == 19 and minute == 48 and second == 26:
         for citizen in citizen_group:
-            citizen.change_target(config.market)
+            citizen.change_target(config.coffee)
             citizen.update()
 
-    if hour == 19 and minute == 49 and second == 5:
-        for citizen in citizen_group:
-            citizen.change_target(config.restaurant)
-            citizen.update()
-
-    if hour == 19 and minute == 49 and second == 20:
-        for citizen in citizen_group:
-            citizen.change_target(config.living_area)
-            citizen.update()
+    # if hour == 19 and minute == 49 and second == 5:
+    #     for citizen in citizen_group:
+    #         citizen.change_target(config.restaurant)
+    #         citizen.update()
+    #
+    # if hour == 19 and minute == 49 and second == 20:
+    #     for citizen in citizen_group:
+    #         citizen.change_target(config.living_area)
+    #         citizen.update()
 
 
 def main():
@@ -71,9 +69,7 @@ def main():
     #     citizen_group.append(citizen)
 
     for i in range(20):
-        citizen = CitizenByFloyd([220 * scale, 100 * scale], config.living_area, "walk_in_area", config.get_road_area(),
-                                 config.get_cross_list(), city_map,
-                                 in_which_area=config.living_area)
+        citizen = CitizenByFloyd([220 * scale, 100 * scale], city_map, "walk_in_area", in_which_area=config.living_area)
         citizen_group.append(citizen)
 
     while True:
@@ -85,7 +81,7 @@ def main():
 
         # Draw the scene
         draw_object(screen, config.get_rect_obs_list(), config.get_poly_obs_list())
-        time_size = 30
+        time_size = int(38 * scale)
         Pencil.write_text(screen, "%02d:%02d:%02d" % (timer.get_hour(), timer.get_minute(), timer.get_second()),
                           [(SCREEN_WIDTH - time_size * 6) * scale, 20 * scale], font_size=time_size,
                           color=(230, 230, 230))
