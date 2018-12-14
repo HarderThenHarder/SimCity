@@ -45,3 +45,15 @@ class PolyArea:
     def get_pos_list(self):
         return self._pos_list
 
+
+class Cross:
+    def __init__(self, pos, name):
+        self._pos = pos
+        self._name = name
+
+    def get_name(self):
+        return self._name
+
+    def get_pos(self):
+        return self._pos
+

@@ -1,5 +1,16 @@
-from Area import RectArea
-from Area import PolyArea
+from Area import RectArea, PolyArea, Cross
+
+
+class Node:
+    def __init__(self, pos, name):
+        self.pos = pos
+        self.name = name
+
+
+class Edge:
+    def __init__(self, nodeA, nodeB):
+        self.nodeA = nodeA
+        self.nodeB = nodeB
 
 
 class AreaConfig:
@@ -7,8 +18,18 @@ class AreaConfig:
         self.rect_area_list = []
         self.poly_area_list = []
         self.road_area = []
-        self.cross_list = [[0 * scale, 210 * scale], [440 * scale, 210 * scale], [1500 * scale, 210 * scale],
-                           [0 * scale, 790 * scale], [440 * scale, 790 * scale], [1500 * scale, 790 * scale]]
+        self.cross_node_list = []
+
+        crossA = Cross([420 * scale, 220 * scale], "A")
+        self.cross_node_list.append(crossA)
+        crossB = Cross([1420 * scale, 220 * scale], "B")
+        self.cross_node_list.append(crossB)
+        crossC = Cross([420 * scale, 620 * scale], "C")
+        self.cross_node_list.append(crossC)
+        crossD = Cross([1420 * scale, 620 * scale], "D")
+        self.cross_node_list.append(crossD)
+
+        self.cross_list = [crossA.get_pos(), crossB.get_pos(), crossC.get_pos(), crossD.get_pos()]
 
         ######################################### rect area list #######################################################
 
@@ -25,7 +46,7 @@ class AreaConfig:
         self.rect_area_list.append(self.natural_park)
 
         # Create LIVING AREA2 BUILDING
-        self.living_area2 = RectArea("LIVING AREA", pos=[1420 * scale, 0], width_height=[500 * scale, 200 * scale],
+        self.living_area2 = RectArea("LIVING AREA 2", pos=[1420 * scale, 0], width_height=[500 * scale, 200 * scale],
                                      color=(192, 80, 70))
         self.living_area2.add_entrance([1670 * scale, 200 * scale])
         self.rect_area_list.append(self.living_area2)
@@ -77,7 +98,7 @@ class AreaConfig:
         # Create RESTAURANT
         self.restaurant = RectArea("RESTAURANT", pos=[800 * scale, 470 * scale],
                                    width_height=[380 * scale, 150 * scale],
-                                   color=(204, 194, 217))
+                                   color=(152, 121, 100))
         self.restaurant.add_entrance([850 * scale, 620 * scale])
         self.rect_area_list.append(self.restaurant)
 
@@ -172,5 +193,54 @@ class AreaConfig:
     def get_cross_list(self):
         return self.cross_list
 
-    def get_building_area(self):
-        return self.building_area
+    def find_node_by_name(self, name, node_list):
+        for node in node_list:
+            if node.name == name:
+                return node
+
+    def get_city_map(self):
+        node_list = []
+        for rect_area in self.rect_area_list:
+            tmp_node = Node(rect_area.get_entrance(), rect_area.get_name())
+            node_list.append(tmp_node)
+        for cross in self.cross_node_list:
+            tmp_node = Node(cross.get_pos(), cross.get_name())
+            node_list.append(tmp_node)
+
+        edge_list = []
+        edge1 = Edge(self.find_node_by_name("LIVING AREA", node_list), self.find_node_by_name("A", node_list))
+        edge_list.append(edge1)
+        edge2 = Edge(self.find_node_by_name("A", node_list), self.find_node_by_name("NATURAL PARK", node_list))
+        edge_list.append(edge2)
+        edge3 = Edge(self.find_node_by_name("NATURAL PARK", node_list), self.find_node_by_name("B", node_list))
+        edge_list.append(edge3)
+        edge4 = Edge(self.find_node_by_name("B", node_list), self.find_node_by_name("LIVING AREA 2", node_list))
+        edge_list.append(edge4)
+        edge5 = Edge(self.find_node_by_name("LIVING AREA", node_list), self.find_node_by_name("AMUSEMENT PARK", node_list))
+        edge_list.append(edge5)
+        edge6 = Edge(self.find_node_by_name("NATURAL PARK", node_list), self.find_node_by_name("MARKET", node_list))
+        edge_list.append(edge6)
+        edge7 = Edge(self.find_node_by_name("LIVING AREA 2", node_list), self.find_node_by_name("FINANCIAL TOWER", node_list))
+        edge_list.append(edge7)
+        edge8 = Edge(self.find_node_by_name("LIVING AREA 2", node_list), self.find_node_by_name("HIGH-TECHNOLOGY", node_list))
+        edge_list.append(edge8)
+        edge9 = Edge(self.find_node_by_name("A", node_list), self.find_node_by_name("C", node_list))
+        edge_list.append(edge9)
+        edge10 = Edge(self.find_node_by_name("C", node_list), self.find_node_by_name("COFFEE", node_list))
+        edge_list.append(edge10)
+        edge11 = Edge(self.find_node_by_name("COFFEE", node_list), self.find_node_by_name("BAR", node_list))
+        edge_list.append(edge11)
+        edge12 = Edge(self.find_node_by_name("C", node_list), self.find_node_by_name("LIBRARY", node_list))
+        edge_list.append(edge12)
+        edge13 = Edge(self.find_node_by_name("LIBRARY", node_list), self.find_node_by_name("RESTAURANT", node_list))
+        edge_list.append(edge13)
+        edge14 = Edge(self.find_node_by_name("RESTAURANT", node_list), self.find_node_by_name("CINEMA", node_list))
+        edge_list.append(edge14)
+        edge15 = Edge(self.find_node_by_name("CINEMA", node_list), self.find_node_by_name("D", node_list))
+        edge_list.append(edge15)
+        edge16 = Edge(self.find_node_by_name("D", node_list), self.find_node_by_name("B", node_list))
+        edge_list.append(edge16)
+        edge17 = Edge(self.find_node_by_name("D", node_list), self.find_node_by_name("IT-BUILDING", node_list))
+        edge_list.append(edge17)
+
+        return node_list, edge_list

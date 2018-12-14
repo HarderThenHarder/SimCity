@@ -1,4 +1,5 @@
 import math
+from AreaConfig import AreaConfig
 
 
 class MathUtility:
@@ -79,8 +80,9 @@ class CityMap:
                 print(self.path_matrix[i][j], end=' ')
             print("")
 
-    def find_node_by_name(self, name):
-        for node in self.node_list:
+    @staticmethod
+    def find_node_by_name(name, node_list):
+        for node in node_list:
             if node.name == name:
                 return node
 
@@ -90,7 +92,7 @@ class CityMap:
         path_list = []
 
         while self.path_matrix[idxA][idxB] != posA.name:
-            tmp_node = self.find_node_by_name(self.path_matrix[idxA][idxB])
+            tmp_node = self.find_node_by_name(self.path_matrix[idxA][idxB], self.node_list)
             idxB = self.node_list.index(tmp_node)
             path_list.append(tmp_node)
 
@@ -141,5 +143,18 @@ def main():
         print(path.name, end=" -> ")
 
 
+def test_city_map():
+    config = AreaConfig(0.8)
+    node_list = config.get_city_map()[0]
+    edge_list = config.get_city_map()[1]
+
+    city_map = CityMap(node_list, edge_list)
+    city_map.print_matrix()
+    print("------------------------------------")
+    # path_list = city_map.find_path(node1, node4)
+    # for path in path_list:
+    #     print(path.name, end=" -> ")
+
+
 if __name__ == '__main__':
-    main()
+    test_city_map()
