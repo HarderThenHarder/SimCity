@@ -218,13 +218,13 @@ class AreaConfig:
         edge_list.append(edge3)
         edge4 = Edge(self.find_node_by_name("B", node_list), self.find_node_by_name("LIVING AREA 2", node_list))
         edge_list.append(edge4)
-        edge5 = Edge(self.find_node_by_name("LIVING AREA", node_list), self.find_node_by_name("AMUSEMENT PARK", node_list))
+        edge5 = Edge(self.find_node_by_name("AMUSEMENT PARK", node_list), self.find_node_by_name("A", node_list))
         edge_list.append(edge5)
         edge6 = Edge(self.find_node_by_name("NATURAL PARK", node_list), self.find_node_by_name("MARKET", node_list))
         edge_list.append(edge6)
-        edge7 = Edge(self.find_node_by_name("LIVING AREA 2", node_list), self.find_node_by_name("FINANCIAL TOWER", node_list))
+        edge7 = Edge(self.find_node_by_name("B", node_list), self.find_node_by_name("FINANCIAL TOWER", node_list))
         edge_list.append(edge7)
-        edge8 = Edge(self.find_node_by_name("LIVING AREA 2", node_list), self.find_node_by_name("HIGH-TECHNOLOGY", node_list))
+        edge8 = Edge(self.find_node_by_name("FINANCIAL TOWER", node_list), self.find_node_by_name("HIGH-TECHNOLOGY", node_list))
         edge_list.append(edge8)
         edge9 = Edge(self.find_node_by_name("A", node_list), self.find_node_by_name("C", node_list))
         edge_list.append(edge9)
@@ -250,6 +250,8 @@ class AreaConfig:
         # for cross in self.cross_node_list:
         #     tmp_node = Node(cross.get_pos(), cross.get_name())
         #     node_list.append(tmp_node)
+        # node_list.append(Node(self.financial_tower.get_entrance(), self.financial_tower.get_name()))
+        # node_list.append(Node(self.coffee.get_entrance(), self.coffee.get_name()))
         #
         # edge_list = []
         #
@@ -261,5 +263,9 @@ class AreaConfig:
         # edge_list.append(edge3)
         # edge4 = Edge(self.find_node_by_name("A", node_list), self.find_node_by_name("C", node_list))
         # edge_list.append(edge4)
+        # edge5 = Edge(self.find_node_by_name("B", node_list), self.find_node_by_name("FINANCIAL TOWER", node_list))
+        # edge_list.append(edge5)
+        # edge6 = Edge(self.find_node_by_name("C", node_list), self.find_node_by_name("COFFEE", node_list))
+        # edge_list.append(edge6)
 
         return node_list, edge_list

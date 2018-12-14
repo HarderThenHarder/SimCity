@@ -46,7 +46,7 @@ class CityMap:
                         [self.node_list[j], self.node_list[i]] in self.edge_pair_list:
                     dis_matrix[i][j] = MathUtility.distance(self.node_list[i].pos, self.node_list[j].pos)
                     dis_matrix[j][i] = MathUtility.distance(self.node_list[i].pos, self.node_list[j].pos)
-                    path_matrix[i][j] = self.node_list[j].name
+                    path_matrix[i][j] = self.node_list[i].name
                     path_matrix[j][i] = self.node_list[j].name
                 elif i == j:
                     dis_matrix[i][j] = 0
@@ -86,19 +86,17 @@ class CityMap:
             if node.name == name:
                 return node
 
-    def find_path(self, posA, posB):
+    def find_path(self, posA, posB, path_list):
         idxA = self.node_list.index(posA)
         idxB = self.node_list.index(posB)
-        path_list = []
 
-        while self.path_matrix[idxA][idxB] != posA.name:
-            tmp_node = self.find_node_by_name(self.path_matrix[idxA][idxB], self.node_list)
-            idxB = self.node_list.index(tmp_node)
-            path_list.append(tmp_node)
+        mid = self.find_node_by_name(self.path_matrix[idxA][idxB], self.node_list)
+        if mid.name == posA.name:
+            return
 
-        path_list.reverse()
-        path_list.append(posB)
-        return path_list
+        self.find_path(posA, mid, path_list)
+        path_list.append(mid)
+        self.find_path(mid, posB, path_list)
 
 
 def main():
@@ -142,7 +140,8 @@ def main():
     cityMap = CityMap(node_list, edge_list)
     cityMap.print_matrix()
     print("------------------------------------")
-    path_list = cityMap.find_path(node1, node7)
+    path_list = []
+    cityMap.find_path(node1, node7, path_list)
     for path in path_list:
         print(path.name, end=" -> ")
 
@@ -156,7 +155,8 @@ def test_city_map():
     city_map = CityMap(node_list, edge_list)
     city_map.print_matrix()
     print("------------------------------------")
-    path_list = city_map.find_path(CityMap.find_node_by_name("BAR", node_list), CityMap.find_node_by_name("HIGH-TECHNOLOGY", node_list))
+    path_list = []
+    city_map.find_path(CityMap.find_node_by_name("BAR", node_list), CityMap.find_node_by_name("LIVING AREA 2", node_list), path_list)
     for path in path_list:
         print(path.name, end=" -> ")
 
