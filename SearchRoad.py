@@ -117,6 +117,8 @@ def main():
     node_list.append(node5)
     node6 = Node([10, 20], "F")
     node_list.append(node6)
+    node7 = Node([20, 20], "G")
+    node_list.append(node7)
 
     edge_list = []
 
@@ -134,26 +136,29 @@ def main():
     edge_list.append(edge6)
     edge7 = Edge(node6, node4)
     edge_list.append(edge7)
+    edge8 = Edge(node6, node7)
+    edge_list.append(edge8)
 
     cityMap = CityMap(node_list, edge_list)
     cityMap.print_matrix()
     print("------------------------------------")
-    path_list = cityMap.find_path(node1, node4)
+    path_list = cityMap.find_path(node1, node7)
     for path in path_list:
         print(path.name, end=" -> ")
 
 
 def test_city_map():
     config = AreaConfig(0.8)
-    node_list = config.get_city_map()[0]
-    edge_list = config.get_city_map()[1]
+    graph = config.get_city_map()
+    node_list = graph[0]
+    edge_list = graph[1]
 
     city_map = CityMap(node_list, edge_list)
     city_map.print_matrix()
     print("------------------------------------")
-    # path_list = city_map.find_path(node1, node4)
-    # for path in path_list:
-    #     print(path.name, end=" -> ")
+    path_list = city_map.find_path(CityMap.find_node_by_name("BAR", node_list), CityMap.find_node_by_name("HIGH-TECHNOLOGY", node_list))
+    for path in path_list:
+        print(path.name, end=" -> ")
 
 
 if __name__ == '__main__':

@@ -201,8 +201,10 @@ class AreaConfig:
     def get_city_map(self):
         node_list = []
         for rect_area in self.rect_area_list:
-            tmp_node = Node(rect_area.get_entrance(), rect_area.get_name())
-            node_list.append(tmp_node)
+            # 只加入有entrance的建筑物，river和road排除掉
+            if rect_area.get_entrance():
+                tmp_node = Node(rect_area.get_entrance(), rect_area.get_name())
+                node_list.append(tmp_node)
         for cross in self.cross_node_list:
             tmp_node = Node(cross.get_pos(), cross.get_name())
             node_list.append(tmp_node)
@@ -242,5 +244,22 @@ class AreaConfig:
         edge_list.append(edge16)
         edge17 = Edge(self.find_node_by_name("D", node_list), self.find_node_by_name("IT-BUILDING", node_list))
         edge_list.append(edge17)
+
+        # node_list = []
+        #
+        # for cross in self.cross_node_list:
+        #     tmp_node = Node(cross.get_pos(), cross.get_name())
+        #     node_list.append(tmp_node)
+        #
+        # edge_list = []
+        #
+        # edge1 = Edge(self.find_node_by_name("A", node_list), self.find_node_by_name("B", node_list))
+        # edge_list.append(edge1)
+        # edge2 = Edge(self.find_node_by_name("B", node_list), self.find_node_by_name("D", node_list))
+        # edge_list.append(edge2)
+        # edge3 = Edge(self.find_node_by_name("D", node_list), self.find_node_by_name("C", node_list))
+        # edge_list.append(edge3)
+        # edge4 = Edge(self.find_node_by_name("A", node_list), self.find_node_by_name("C", node_list))
+        # edge_list.append(edge4)
 
         return node_list, edge_list
