@@ -6,6 +6,8 @@ from Citizen import Citizen
 from Pencil import Pencil
 from PencilForSimCity import PencilForSimCity
 import time
+from SearchRoad import CityMap
+from CitizenByFloyd import CitizenByFloyd
 
 from Timer import Timer
 
@@ -53,13 +55,25 @@ def main():
     ticks = 0
     tick_elapsed = 0
 
+    # Create City Map
+    graph = config.get_city_map()
+    node_list = graph[0]
+    edge_list = graph[1]
+    city_map = CityMap(node_list, edge_list)
+
     background = pygame.image.load("img/city_bg2.png")
     background = pygame.transform.scale(background, [int(SCREEN_WIDTH * scale), int(SCREEN_HEIGHT * scale)])
 
     citizen_group = []
+    # for i in range(20):
+    #     citizen = Citizen([220 * scale, 100 * scale], config.living_area, "walk_in_area", config.get_road_area(), config.get_cross_list(),
+    #                       in_which_area=config.living_area)
+    #     citizen_group.append(citizen)
+
     for i in range(20):
-        citizen = Citizen([220 * scale, 100 * scale], config.living_area, "walk_in_area", config.get_road_area(), config.get_cross_list(),
-                          in_which_area=config.living_area)
+        citizen = CitizenByFloyd([220 * scale, 100 * scale], config.living_area, "walk_in_area", config.get_road_area(),
+                                 config.get_cross_list(), city_map,
+                                 in_which_area=config.living_area)
         citizen_group.append(citizen)
 
     while True:
@@ -73,7 +87,8 @@ def main():
         draw_object(screen, config.get_rect_obs_list(), config.get_poly_obs_list())
         time_size = 30
         Pencil.write_text(screen, "%02d:%02d:%02d" % (timer.get_hour(), timer.get_minute(), timer.get_second()),
-                          [(SCREEN_WIDTH - time_size * 6) * scale, 20 * scale], font_size=time_size, color=(230, 230, 230))
+                          [(SCREEN_WIDTH - time_size * 6) * scale, 20 * scale], font_size=time_size,
+                          color=(230, 230, 230))
 
         # Draw citizen
         for citizen in citizen_group:

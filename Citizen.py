@@ -34,14 +34,6 @@ class Citizen(pygame.sprite.Sprite):
         return flag
 
     @staticmethod
-    def is_in_building(pos1, building_list):
-        flag = False
-        for road_point in building_list:
-            if road_point[0][0] <= pos1[0] <= road_point[1][0] and road_point[0][1] <= pos1[1] <= road_point[1][1]:
-                flag = True
-        return flag
-
-    @staticmethod
     def get_nearest_cross(pos, cross_list):
         min_d = Citizen.distance(cross_list[0], pos)
         nearest_cross = cross_list[0]

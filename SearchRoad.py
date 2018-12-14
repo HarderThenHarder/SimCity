@@ -153,10 +153,10 @@ def test_city_map():
     edge_list = graph[1]
 
     city_map = CityMap(node_list, edge_list)
-    city_map.print_matrix()
-    print("------------------------------------")
+    # city_map.print_matrix()
+    # print("------------------------------------")
     path_list = []
-    city_map.find_path(CityMap.find_node_by_name("BAR", node_list), CityMap.find_node_by_name("LIVING AREA 2", node_list), path_list)
+    city_map.find_path(CityMap.find_node_by_name("BAR", node_list), CityMap.find_node_by_name("HIGH-TECHNOLOGY", node_list), path_list)
     for path in path_list:
         print(path.name, end=" -> ")
 
