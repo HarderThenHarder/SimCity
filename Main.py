@@ -28,32 +28,38 @@ def trigger(timer, citizen_group_list, config):
     hour = timer.get_hour()
 
     if hour == 19 and minute == 30:
-        for citizen in citizen_group_list[0]:
-            citizen.change_target(config.coffee)
-            citizen.update()
-
-    if hour == 19 and minute == 48:
-        for citizen in citizen_group_list[1]:
-            citizen.change_target(config.library)
-            citizen.update()
-
-    if hour == 20 and minute == 15:
+        # for citizen in citizen_group_list[0]:
+        #     citizen.change_target(config.coffee)
+        #     citizen.update()
         for i in range(len(citizen_group_list[0]) - 1):
             rand_target = randint(0, 12)
             citizen_group_list[0][i].change_target(config.rect_area_list[rand_target])
             citizen_group_list[0][i].update()
 
-    if hour == 20 and minute == 40:
+    if hour == 19 and minute == 48:
+        # for citizen in citizen_group_list[1]:
+        #     citizen.change_target(config.library)
+        #     citizen.update()
         for i in range(len(citizen_group_list[0]) - 1):
             rand_target = randint(0, 12)
             citizen_group_list[1][i].change_target(config.rect_area_list[rand_target])
             citizen_group_list[1][i].update()
 
+    if hour == 21 and minute == 0:
+        for i in range(int(len(citizen_group_list[0]) / 3)):
+            rand_target = randint(0, 12)
+            citizen_group_list[0][i].change_target(config.rect_area_list[rand_target])
+            citizen_group_list[0][i].update()
+        for i in range(int(len(citizen_group_list[1]) / 3)):
+            rand_target = randint(0, 12)
+            citizen_group_list[1][i].change_target(config.rect_area_list[rand_target])
+            citizen_group_list[1][i].update()
+
     if hour == 22 and minute == 0:
-        for i in range(len(citizen_group_list[0]) - 1):
+        for i in range(len(citizen_group_list[0])):
             citizen_group_list[0][i].change_target(config.living_area)
             citizen_group_list[0][i].update()
-        for i in range(len(citizen_group_list[1]) - 1):
+        for i in range(len(citizen_group_list[1])):
             citizen_group_list[1][i].change_target(config.living_area2)
             citizen_group_list[1][i].update()
 
@@ -84,13 +90,13 @@ def main():
     # Create citizen_group
     citizen_group_list = []
     citizen_group_live_in_area_1 = []
-    for i in range(20):
+    for i in range(50):
         citizen = CitizenByFloyd([220 * scale, 100 * scale], city_map, "walk_in_area", in_which_area=config.living_area)
         citizen_group_live_in_area_1.append(citizen)
     citizen_group_list.append(citizen_group_live_in_area_1)
 
     citizen_group_live_in_area_2 = []
-    for i in range(20):
+    for i in range(50):
         citizen = CitizenByFloyd([1750 * scale, 100 * scale], city_map, "walk_in_area", in_which_area=config.living_area2)
         citizen_group_live_in_area_2.append(citizen)
     citizen_group_list.append(citizen_group_live_in_area_2)

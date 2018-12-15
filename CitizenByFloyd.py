@@ -3,7 +3,6 @@
 """
 import pygame
 from random import random, randint
-import math
 from SearchRoad import CityMap
 from MathUtility import MathUtility
 
