@@ -11,7 +11,7 @@ from MathUtility import MathUtility
 class CitizenByFloyd(pygame.sprite.Sprite):
     def __init__(self, initial_pos, city_map, state, in_which_area=None):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface([7, 7])
+        self.image = pygame.Surface([5, 5])
         self.initial_pos = initial_pos
         self.pos = initial_pos
         self.speed = 3 + 2 * random()

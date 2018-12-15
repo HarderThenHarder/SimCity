@@ -17,7 +17,15 @@ class Timer:
         if self._minute == 60:
             self._hour += 1
             self._minute = 0
-        if self._hour == 60:
+        if self._hour == 24:
+            self._hour = 0
+
+    def elapse_one_minute(self):
+        self._minute += 1
+        if self._minute == 60:
+            self._hour += 1
+            self._minute = 0
+        if self._hour == 24:
             self._hour = 0
 
     def get_second(self):
