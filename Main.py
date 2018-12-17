@@ -28,7 +28,7 @@ def trigger(timer, area_config, citizen_config):
     if hour == 19 and minute == 30:
         programmers = citizen_config.find_citizen_by_occupation("programmer")
         for programmer in programmers:
-            programmer.change_target(area_config.it_building)
+            programmer.change_target(programmer.occupation_area)
 
     # if hour == 19 and minute == 30:
     #     # for citizen in citizen_group_list[0]:

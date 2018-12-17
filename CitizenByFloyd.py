@@ -19,12 +19,14 @@ class CitizenByFloyd(pygame.sprite.Sprite):
         self.city_map = city_map
         self.node_has_arrived = 0
         self.state = state
-        self.occupation = None
+        self.occupation_name = None
+        self.occupation_area = None
         self.residence = residence
         self.in_which_target = residence
 
-    def set_occupation(self, occupation):
-        self.occupation = occupation
+    def set_occupation(self, occupation_name, occupation_area):
+        self.occupation_name = occupation_name
+        self.occupation_area = occupation_area
 
     def go_target(self, target_pos):
         # x_offset calculate
