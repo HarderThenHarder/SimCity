@@ -1,6 +1,7 @@
 """
 @author: P_k_y
 """
+import random
 
 
 class DailySchedule:
@@ -18,6 +19,26 @@ class DailySchedule:
             for citizen in self.citizen_config.citizen_list:
                 if citizen.occupation_area:
                     citizen.change_target(citizen.occupation_area)
+
+        # -------------------- lunch time ---------------------------- #
+        random_minute = random.randint(0, 59)
+        if hour == 11 and minute == random_minute:
+            lunch_list = self.citizen_config.find_citizen_by_occupation("programmer")
+            for citizen in lunch_list:
+                citizen.change_target(self.area_config.restaurant)
+
+        random_minute = random.randint(0, 59)
+        if hour == 11 and minute == random_minute:
+            lunch_list = self.citizen_config.find_citizen_by_occupation("embedded engineer")
+            for citizen in lunch_list:
+                citizen.change_target(self.area_config.restaurant)
+
+        random_minute = random.randint(0, 59)
+        if hour == 11 and minute == random_minute:
+            lunch_list = self.citizen_config.find_citizen_by_occupation("accountant")
+            for citizen in lunch_list:
+                citizen.change_target(self.area_config.restaurant)
+        # ----------------------------------------------------------#
 
         if hour == 19 and minute == 30:
             programmers = self.citizen_config.find_citizen_by_occupation("programmer")
@@ -59,4 +80,3 @@ class DailySchedule:
         #     for i in range(len(citizen_list[1])):
         #         citizen_list[1][i].change_target(config.living_area2)
         #         citizen_list[1][i].update()
-
