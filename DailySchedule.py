@@ -14,7 +14,7 @@ class DailySchedule:
         second = self.timer.get_second()
         minute = self.timer.get_minute()
         hour = self.timer.get_hour()
-        global lunch_time_for_programmer, lunch_time_for_embedded_engineer, lunch_time_for_accountant
+        global lunch_time_for_programmer, lunch_time_for_embedded_engineer, lunch_time_for_accountant, random_time_in_7_8_one, shuffle_citizen_list, random_time_in_7_8_two, random_time_in_8_9_one, random_time_in_8_9_two
         building_area = self.area_config.get_building_area()
 
         if hour == 8 and minute == 0:
@@ -58,9 +58,37 @@ class DailySchedule:
             lunch_list = self.citizen_config.find_citizen_by_occupation("accountant")
             for citizen in lunch_list:
                 citizen.change_target(self.area_config.financial_tower)
-        # ----------------------------------------------------------#
+        # ---------------------------------------------------------- #
 
-        if hour == 17 and minute == 30:
-            accounts = self.citizen_config.find_citizen_by_occupation("accountant")
-            for account in accounts:
-                account.change_target(account.residence)
+        # -------------------------- off duty ---------------------- #
+        if hour == 18 and minute == 30:
+            random_time_in_7_8_one = random.randint(0, 59)
+            random_time_in_7_8_two = random.randint(0, 59)
+            random_time_in_8_9_one = random.randint(0, 59)
+            random_time_in_8_9_two = random.randint(0, 59)
+            shuffle_citizen_list = self.citizen_config.citizen_list.copy()
+            random.shuffle(shuffle_citizen_list)
+
+        if hour == 19 and minute == random_time_in_7_8_one:
+            for i in range(30):
+                shuffle_citizen_list[i].change_target(self.area_config.market)
+
+        if hour == 19 and minute == random_time_in_7_8_two:
+            for i in range(30, 51):
+                shuffle_citizen_list[i].change_target(self.area_config.market)
+
+        if hour == 20 and minute == random_time_in_8_9_one:
+            for i in range(51, 61):
+                shuffle_citizen_list[i].change_target(self.area_config.cinema)
+
+        if hour == 20 and minute == random_time_in_8_9_two:
+            for i in range(61, 66):
+                shuffle_citizen_list[i].change_target(self.area_config.cinema)
+        # -------------------------------------------------------------- #
+
+        # ------------------------ go home ---------------------------- #
+
+        if hour == 22 and minute == 30:
+            for citizen in self.citizen_config.citizen_list:
+                citizen.change_target(citizen.residence)
+
