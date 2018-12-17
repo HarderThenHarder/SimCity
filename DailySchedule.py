@@ -16,7 +16,8 @@ class DailySchedule:
 
         if hour == 8 and minute == 0:
             for citizen in self.citizen_config.citizen_list:
-                citizen.change_target(citizen.occupation_area)
+                if citizen.occupation_area:
+                    citizen.change_target(citizen.occupation_area)
 
         if hour == 19 and minute == 30:
             programmers = self.citizen_config.find_citizen_by_occupation("programmer")
