@@ -8,18 +8,23 @@ from MathUtility import MathUtility
 
 
 class CitizenByFloyd(pygame.sprite.Sprite):
-    def __init__(self, initial_pos, city_map, state, in_which_area=None):
+    def __init__(self, initial_pos, city_map, state, residence=None):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([5, 5])
         self.initial_pos = initial_pos
         self.pos = initial_pos
         self.speed = 3 + 2 * random()
-        self.target_area = in_which_area
+        self.target_area = residence
         self.path_list = []
         self.city_map = city_map
         self.node_has_arrived = 0
         self.state = state
-        self.in_which_target = in_which_area
+        self.occupation = None
+        self.residence = residence
+        self.in_which_target = residence
+
+    def set_occupation(self, occupation):
+        self.occupation = occupation
 
     def go_target(self, target_pos):
         # x_offset calculate
