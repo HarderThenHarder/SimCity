@@ -252,3 +252,10 @@ class AreaConfig:
         edge_list.append(edge20)
 
         return node_list, edge_list
+
+    def get_building_area(self):
+        building_area = []
+        for rect_area in self.rect_area_list:
+            if rect_area.get_entrance():
+                building_area.append(rect_area)
+        return building_area

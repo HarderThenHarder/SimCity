@@ -76,7 +76,7 @@ class CitizenByFloyd(pygame.sprite.Sprite):
     def walk_in_area(self):
         start_pos = self.in_which_target.get_start_pos()
         end_pos = self.in_which_target.get_end_pos()
-        rand_pos = [randint(start_pos[0], end_pos[0] + 1), randint(start_pos[1], end_pos[1] + 1)]
+        rand_pos = [randint(int(start_pos[0]), int(end_pos[0] + 1)), randint(int(start_pos[1]), int(end_pos[1] + 1))]
         self.go_target(rand_pos)
 
     def walk_out_area(self):

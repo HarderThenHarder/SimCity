@@ -14,6 +14,8 @@ class DailySchedule:
         second = self.timer.get_second()
         minute = self.timer.get_minute()
         hour = self.timer.get_hour()
+        global lunch_time_for_programmer, lunch_time_for_embedded_engineer, lunch_time_for_accountant
+        building_area = self.area_config.get_building_area()
 
         if hour == 8 and minute == 0:
             for citizen in self.citizen_config.citizen_list:
@@ -21,62 +23,44 @@ class DailySchedule:
                     citizen.change_target(citizen.occupation_area)
 
         # -------------------- lunch time ---------------------------- #
-        random_minute = random.randint(0, 59)
-        if hour == 11 and minute == random_minute:
+        if hour == 11 and minute == 0:
+            lunch_time_for_programmer = random.randint(0, 59)
+            lunch_time_for_embedded_engineer = random.randint(0, 59)
+            lunch_time_for_accountant = random.randint(0, 59)
+
+        if hour == 11 and minute == lunch_time_for_programmer:
             lunch_list = self.citizen_config.find_citizen_by_occupation("programmer")
             for citizen in lunch_list:
                 citizen.change_target(self.area_config.restaurant)
 
-        random_minute = random.randint(0, 59)
-        if hour == 11 and minute == random_minute:
+        if hour == 11 and minute == lunch_time_for_embedded_engineer:
             lunch_list = self.citizen_config.find_citizen_by_occupation("embedded engineer")
             for citizen in lunch_list:
                 citizen.change_target(self.area_config.restaurant)
 
-        random_minute = random.randint(0, 59)
-        if hour == 11 and minute == random_minute:
+        if hour == 11 and minute == lunch_time_for_accountant:
             lunch_list = self.citizen_config.find_citizen_by_occupation("accountant")
             for citizen in lunch_list:
                 citizen.change_target(self.area_config.restaurant)
+
+        # lunch time is 1 hour
+        if hour == 12 and minute == lunch_time_for_programmer:
+            lunch_list = self.citizen_config.find_citizen_by_occupation("programmer")
+            for citizen in lunch_list:
+                citizen.change_target(self.area_config.it_building)
+
+        if hour == 12 and minute == lunch_time_for_embedded_engineer:
+            lunch_list = self.citizen_config.find_citizen_by_occupation("embedded engineer")
+            for citizen in lunch_list:
+                citizen.change_target(self.area_config.high_technology)
+
+        if hour == 12 and minute == lunch_time_for_accountant:
+            lunch_list = self.citizen_config.find_citizen_by_occupation("accountant")
+            for citizen in lunch_list:
+                citizen.change_target(self.area_config.financial_tower)
         # ----------------------------------------------------------#
 
-        if hour == 19 and minute == 30:
-            programmers = self.citizen_config.find_citizen_by_occupation("programmer")
-            for programmer in programmers:
-                programmer.change_target(programmer.occupation_area)
-
-        # if hour == 19 and minute == 30:
-        #     # for citizen in citizen_group_list[0]:
-        #     #     citizen.change_target(config.coffee)
-        #     #     citizen.update()
-        #     for i in range(len(citizen_list) - 1):
-        #         rand_target = randint(0, 12)
-        #         citizen_list[i].change_target(area_config.rect_area_list[rand_target])
-        #         citizen_list[i].update()
-
-        # if hour == 19 and minute == 48:
-        #     # for citizen in citizen_group_list[1]:
-        #     #     citizen.change_target(config.library)
-        #     #     citizen.update()
-        #     for i in range(len(citizen_list) - 1):
-        #         rand_target = randint(0, 12)
-        #         citizen_list[i].change_target(config.rect_area_list[rand_target])
-        #         citizen_list[i].update()
-        #
-        # if hour == 21 and minute == 0:
-        #     for i in range(int(len(citizen_list[0]) / 3)):
-        #         rand_target = randint(0, 12)
-        #         citizen_list[0][i].change_target(config.rect_area_list[rand_target])
-        #         citizen_list[0][i].update()
-        #     for i in range(int(len(citizen_list[1]) / 3)):
-        #         rand_target = randint(0, 12)
-        #         citizen_list[1][i].change_target(config.rect_area_list[rand_target])
-        #         citizen_list[1][i].update()
-        #
-        # if hour == 22 and minute == 0:
-        #     for i in range(len(citizen_list[0])):
-        #         citizen_list[0][i].change_target(config.living_area)
-        #         citizen_list[0][i].update()
-        #     for i in range(len(citizen_list[1])):
-        #         citizen_list[1][i].change_target(config.living_area2)
-        #         citizen_list[1][i].update()
+        if hour == 17 and minute == 30:
+            accounts = self.citizen_config.find_citizen_by_occupation("accountant")
+            for account in accounts:
+                account.change_target(account.residence)

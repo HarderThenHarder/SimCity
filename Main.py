@@ -33,7 +33,7 @@ def main():
     # Set constance value
     area_config = AreaConfig(scale)
     timer = Timer()
-    timer.set_time(7, 58, 23)
+    timer.set_time(7, 59, 23)
     ticks = 0
     tick_elapsed = 0
     time_elapsed_speed = 1
