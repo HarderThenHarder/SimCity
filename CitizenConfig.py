@@ -18,13 +18,13 @@ class CitizenConfig:
 
         #  ----- Give occupation to them -----
         # 20 Programmers which index [ 0 ~ 9 + 50 ~ 59]
-        self.set_occupation("programmer", area_config.it_building, [0, 10], [49, 59])
+        self.set_occupation("programmer", area_config.it_building, [0, 10], [50, 60])
         # 30 Accountants which index [ 10 ~ 24 + 60 ~ 74]
-        self.set_occupation("accountant", area_config.financial_tower, [10, 25], [59, 74])
+        self.set_occupation("accountant", area_config.financial_tower, [10, 25], [60, 75])
         # 20 Embedded Engineers which index [25 ~ 34 + 75 ~ 84]
         self.set_occupation("embedded engineer", area_config.high_technology, [25, 35], [75, 85])
         # 5 Natural park staff which index [35 ~ 37 + 85 ~ 86]
-        self.set_occupation("natural park staff", area_config.natural_park, [35, 38], [85, 87])
+        self.set_occupation("amusement park staff", area_config.amusement_park, [35, 38], [85, 87])
         # 10 Market staff which index [38 ~ 42 + 87 ~ 91]
         self.set_occupation("market staff", area_config.market, [38, 43], [87, 92])
         # 3 Coffee staff which index [43 ~ 43, 92 ~ 93]
