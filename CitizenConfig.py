@@ -10,10 +10,10 @@ class CitizenConfig:
 
         # ----- Create Person by residence -----
         for i in range(50):
-            citizen = CitizenByFloyd([220 * scale, 100 * scale], city_map, "walk_in_area", residence=area_config.living_area)
+            citizen = CitizenByFloyd([220 * scale, 100 * scale], city_map, "walk_in_area", area_config.living_area)
             self.citizen_list.append(citizen)
         for i in range(50):
-            citizen = CitizenByFloyd([1750 * scale, 100 * scale], city_map, "walk_in_area", residence=area_config.living_area2)
+            citizen = CitizenByFloyd([1750 * scale, 100 * scale], city_map, "walk_in_area", area_config.living_area2)
             self.citizen_list.append(citizen)
 
         #  ----- Give occupation to them -----

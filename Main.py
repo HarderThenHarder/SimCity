@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from sys import exit
 from AreaConfig import AreaConfig
+from DailySchedule import DailySchedule
 from Pencil import Pencil
 from PencilForSimCity import PencilForSimCity
 import time
@@ -20,53 +21,6 @@ def draw_object(screen, rec_obs, poly_obs):
         PencilForSimCity.draw_area(screen, ob.get_color(), ob.get_rect(), ob.get_name(), name_size=int(25 * scale))
 
 
-def trigger(timer, area_config, citizen_config):
-    second = timer.get_second()
-    minute = timer.get_minute()
-    hour = timer.get_hour()
-
-    if hour == 19 and minute == 30:
-        programmers = citizen_config.find_citizen_by_occupation("programmer")
-        for programmer in programmers:
-            programmer.change_target(programmer.occupation_area)
-
-    # if hour == 19 and minute == 30:
-    #     # for citizen in citizen_group_list[0]:
-    #     #     citizen.change_target(config.coffee)
-    #     #     citizen.update()
-    #     for i in range(len(citizen_list) - 1):
-    #         rand_target = randint(0, 12)
-    #         citizen_list[i].change_target(area_config.rect_area_list[rand_target])
-    #         citizen_list[i].update()
-
-    # if hour == 19 and minute == 48:
-    #     # for citizen in citizen_group_list[1]:
-    #     #     citizen.change_target(config.library)
-    #     #     citizen.update()
-    #     for i in range(len(citizen_list) - 1):
-    #         rand_target = randint(0, 12)
-    #         citizen_list[i].change_target(config.rect_area_list[rand_target])
-    #         citizen_list[i].update()
-    #
-    # if hour == 21 and minute == 0:
-    #     for i in range(int(len(citizen_list[0]) / 3)):
-    #         rand_target = randint(0, 12)
-    #         citizen_list[0][i].change_target(config.rect_area_list[rand_target])
-    #         citizen_list[0][i].update()
-    #     for i in range(int(len(citizen_list[1]) / 3)):
-    #         rand_target = randint(0, 12)
-    #         citizen_list[1][i].change_target(config.rect_area_list[rand_target])
-    #         citizen_list[1][i].update()
-    #
-    # if hour == 22 and minute == 0:
-    #     for i in range(len(citizen_list[0])):
-    #         citizen_list[0][i].change_target(config.living_area)
-    #         citizen_list[0][i].update()
-    #     for i in range(len(citizen_list[1])):
-    #         citizen_list[1][i].change_target(config.living_area2)
-    #         citizen_list[1][i].update()
-
-
 def main():
     pygame.init()
 
@@ -79,7 +33,7 @@ def main():
     # Set constance value
     area_config = AreaConfig(scale)
     timer = Timer()
-    timer.set_time(19, 28, 23)
+    timer.set_time(7, 58, 23)
     ticks = 0
     tick_elapsed = 0
     time_elapsed_speed = 1
@@ -93,11 +47,13 @@ def main():
     # Create citizen
     citizen_config = CitizenConfig(scale, area_config, city_map)
 
+    # Create DailySchedule
+    daily_schedule = DailySchedule(timer, area_config, citizen_config)
+
     while True:
         since = time.time()
         clock.tick(10)
 
-        # screen.blit(background, (0, 0))
         screen.fill(color=(0, 73, 48))
 
         # Draw the scene
@@ -134,7 +90,7 @@ def main():
             print(citizen_config.citizen_list[0].state)
             tick_elapsed = 0
 
-        trigger(timer, area_config, citizen_config)
+        daily_schedule.trigger()
         pygame.display.update()
 
 

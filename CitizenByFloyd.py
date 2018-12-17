@@ -8,7 +8,7 @@ from MathUtility import MathUtility
 
 
 class CitizenByFloyd(pygame.sprite.Sprite):
-    def __init__(self, initial_pos, city_map, state, residence=None):
+    def __init__(self, initial_pos, city_map, state, residence):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([5, 5])
         self.initial_pos = initial_pos
