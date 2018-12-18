@@ -69,6 +69,8 @@ def main():
         Pencil.write_text(screen, "%02d:%02d" % (timer.get_hour(), timer.get_minute()),
                           [(SCREEN_WIDTH - time_size * 4) * scale, 20 * scale], font_size=time_size,
                           color=(230, 230, 230))
+        # time_signal
+        # PencilForSimCity.draw_sun(screen, [(SCREEN_WIDTH - time_size * 2) * scale, 90 * scale], scale)
 
         # Draw citizen
         for citizen in citizen_config.citizen_list:

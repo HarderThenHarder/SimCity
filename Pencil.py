@@ -20,8 +20,12 @@ class Pencil:
         pygame.draw.polygon(screen, color, pointlist, width)
 
     @staticmethod
-    def draw_circle(screen, pos,  radius, color=(0, 0, 0), width=1):
+    def draw_circle(screen, pos,  radius, color=(0, 0, 0), width=0):
         pygame.draw.circle(screen, color, pos, radius, width)
+
+    @staticmethod
+    def draw_arc(screen, rect, start_angle, end_angle, color=(0, 0, 0), width=0):
+        pygame.draw.arc(screen, color, rect, start_angle, end_angle, width)
 
     @staticmethod
     def write_text(screen, content, font_pos, font_size, color=(0, 0, 0)):
