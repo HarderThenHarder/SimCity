@@ -9,6 +9,7 @@ import time
 from SearchRoad import CityMap
 from CitizenConfig import CitizenConfig
 from Timer import Timer
+from Scene import Scene
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 960
@@ -33,10 +34,13 @@ def main():
     # Set constance value
     area_config = AreaConfig(scale)
     timer = Timer()
-    timer.set_time(18, 28, 23)
+    timer.set_time(6, 59, 23)
     ticks = 0
     tick_elapsed = 0
     time_elapsed_speed = 1
+
+    # Create Scene
+    scene = Scene(timer, [SCREEN_WIDTH, SCREEN_HEIGHT])
 
     # Create City Map
     graph = area_config.get_city_map()
@@ -59,6 +63,9 @@ def main():
         # Draw the scene
         draw_object(screen, area_config.get_rect_obs_list(), area_config.get_poly_obs_list())
         time_size = int(38 * scale)
+        # brightness canvas
+        screen.blit(scene.brightness_canvas, (0, 0))
+        # time
         Pencil.write_text(screen, "%02d:%02d" % (timer.get_hour(), timer.get_minute()),
                           [(SCREEN_WIDTH - time_size * 4) * scale, 20 * scale], font_size=time_size,
                           color=(230, 230, 230))
@@ -78,6 +85,9 @@ def main():
                 elif event.key == K_DOWN:
                     time_elapsed_speed = 1
 
+        # Draw brightness canvas
+        screen.blit(scene.brightness_canvas, (0, 0))
+
         if ticks % int(2 / time_elapsed_speed) == 0:
             for citizen in citizen_config.citizen_list:
                 citizen.update()
@@ -91,6 +101,7 @@ def main():
             tick_elapsed = 0
 
         daily_schedule.trigger()
+        scene.update_brightness()
         pygame.display.update()
 
 
