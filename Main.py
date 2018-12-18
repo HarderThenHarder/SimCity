@@ -34,7 +34,7 @@ def main():
     # Set constance value
     area_config = AreaConfig(scale)
     timer = Timer()
-    timer.set_time(6, 59, 23)
+    timer.set_time(7, 30, 23)
     ticks = 0
     tick_elapsed = 0
     time_elapsed_speed = 1
@@ -63,14 +63,17 @@ def main():
         # Draw the scene
         draw_object(screen, area_config.get_rect_obs_list(), area_config.get_poly_obs_list())
         time_size = int(38 * scale)
+        content_size = int(22 * scale)
         # brightness canvas
         screen.blit(scene.brightness_canvas, (0, 0))
         # time
         Pencil.write_text(screen, "%02d:%02d" % (timer.get_hour(), timer.get_minute()),
                           [(SCREEN_WIDTH - time_size * 4) * scale, 20 * scale], font_size=time_size,
                           color=(230, 230, 230))
-        # time_signal
-        # PencilForSimCity.draw_sun(screen, [(SCREEN_WIDTH - time_size * 2) * scale, 90 * scale], scale)
+        Pencil.write_text(screen, "Citizen: %d" % len(citizen_config.citizen_list), [10 * scale, 20 * scale], font_size=content_size,
+                          color=(230, 230, 230))
+        Pencil.write_text(screen, "Period : " + scene.period, [10 * scale, 40 * scale], font_size=content_size,
+                          color=(230, 230, 230))
 
         # Draw citizen
         for citizen in citizen_config.citizen_list:
@@ -103,7 +106,7 @@ def main():
             tick_elapsed = 0
 
         daily_schedule.trigger()
-        scene.update_brightness()
+        scene.update()
         pygame.display.update()
 
 
